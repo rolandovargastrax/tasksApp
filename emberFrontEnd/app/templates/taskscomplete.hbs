@@ -1,0 +1,84 @@
+{{outlet}}
+
+<table width="100%" cellspacing="8" cellpadding="2px">
+	<tr>
+		<td class="small" style="text-align:right">{{link-to 'Back to Add Tasks' 'tasks'}}</td>
+	</tr>
+</table>
+
+{{#if validationMessage}}
+<div class="errorMessage">{{validationMessage}}</div>
+{{/if}}
+<hr />
+
+
+
+
+<div>
+
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#completetasks" aria-controls="completetasks" role="tab" data-toggle="tab">Complete Tasks</a></li>
+		<li role="presentation"><a href="#cancelledtasks" aria-controls="cancelledtasks" role="tab" data-toggle="tab">Cancelled Tasks</a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="completetasks">
+			<br/>
+			<table width="100%" cellspacing="2" cellpadding="2px" class="table">
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th style="text-align: right;">Completed On</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each tasks.completeTasks.items as |currentTask|}}
+					<tr>
+						<td>{{currentTask.name}}</td>
+						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.creationDateStr}}{{currentTask.creationDateStr}}{{/if}}</p></td>
+					</tr>
+					{{else}}
+					No complete tasks.
+					{{/each}}
+				</tbody>
+			</table>
+			{{#if tasks.completeTasks.items}}
+      			<p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCompleteTasks'}}>Delete All Complete Tasks</button></p>
+      		{{/if}}
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="cancelledtasks">
+			<br/>
+				<table width="100%" cellspacing="2" cellpadding="2px" class="table">
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th style="text-align: right;">Cancelled On</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each tasks.cancelledTasks.items as |currentTask|}}
+					<tr>
+						<td>{{currentTask.name}}</td>
+						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.creationDateStr}}{{currentTask.creationDateStr}}{{/if}}</p></td>
+					</tr>
+					{{else}}
+					No cancelled tasks.
+					{{/each}}
+				</tbody>
+			</table>
+			{{#if tasks.cancelledTasks.items}}
+      			<p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCancelledTasks'}}>Delete All Cancelled Tasks</button></p>
+      		{{/if}}
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+body {
+  /* padding: 50px; */
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+  margin: 0 auto;
+  text-align: left;
+  width: 800px;
+}
+
+/* .inputTextField{
+  width: 250px;
+} */
+
+.errorMessage {
+  color: red;
+}
+
+.dateClass {
+	color:gray;
+	font-size:smaller;
+}
