@@ -37,7 +37,7 @@
 					{{#each tasks.completeTasks.items as |currentTask|}}
 					<tr>
 						<td>{{currentTask.name}}</td>
-						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.creationDateStr}}{{currentTask.creationDateStr}}{{/if}}</p></td>
+						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
 					</tr>
 					{{else}}
 					No complete tasks.
@@ -61,7 +61,7 @@
 					{{#each tasks.cancelledTasks.items as |currentTask|}}
 					<tr>
 						<td>{{currentTask.name}}</td>
-						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.creationDateStr}}{{currentTask.creationDateStr}}{{/if}}</p></td>
+						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
 					</tr>
 					{{else}}
 					No cancelled tasks.

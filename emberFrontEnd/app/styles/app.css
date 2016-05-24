@@ -1,15 +1,13 @@
 body {
-  /* padding: 50px; */
+  padding-top: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 
   margin: 0 auto;
   text-align: left;
   width: 800px;
+  font-size: small;
 }
 
-/* .inputTextField{
-  width: 250px;
-} */
 
 .errorMessage {
   color: red;
