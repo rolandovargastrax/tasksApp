@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model: function() {
-		return Ember.$.getJSON('http://localhost:3000/status/pending').then(function(response){
+		return Ember.$.getJSON('http://localhost:3000/status/pending/creationDate').then(function(response){
 			// display the results to the console (for debugging purposes)
 			// console.log(JSON.stringify(response));
 			return response;

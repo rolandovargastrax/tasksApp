@@ -7,8 +7,7 @@ var ObjectId = require('mongodb').ObjectId
 var url = 'mongodb://localhost:27017/test'
 
 // filters the tasks by status
-router.get('/status/:status', function(req, res, next) {
-	// res.render('index', { title: 'Express' });
+router.get('/status/:status/:sortField', function(req, res, next) {
 
 	// connect to the mongo database
 	MongoClient.connect(url, function(err, db){
@@ -19,7 +18,13 @@ router.get('/status/:status', function(req, res, next) {
 		// assert.equal(null, err);
 		// console.log('Connected correctly to server.');
 		// call the find method
-		cursor = db.collection('tasks').find({"status": req.params.status}).sort({"creationDate": -1});
+		// for some reason it didn't like it when I had the line like  .sort({req.params.sortField: -1});
+		if(req.params.sortField == "creationDate"){
+			cursor = db.collection('tasks').find({"status": req.params.status}).sort({"creationDate": -1});
+		}
+		else{
+			cursor = db.collection('tasks').find({"status": req.params.status}).sort({"completeDate": -1});
+		}
 		cursor.toArray( function(err, items){
 			// console.log('Tasks converted to array successfully');
 			db.close();
@@ -28,13 +33,13 @@ router.get('/status/:status', function(req, res, next) {
 				// populate the formatted creationDate
 				if(items[currentItem].creationDate != null){
 					try{
-						items[currentItem].creationDateStr = items[currentItem].creationDate.getFullYear() + '.' + ('00' + items[currentItem].creationDate.getMonth()).slice(-2) + '.' + ('00' + items[currentItem].creationDate.getDate()).slice(-2);
+						items[currentItem].creationDateStr = items[currentItem].creationDate.getFullYear() + '.' + ('00' + (items[currentItem].creationDate.getMonth() + 1)).slice(-2) + '.' + ('00' + items[currentItem].creationDate.getDate()).slice(-2);
 					}catch(ex){;}
 				}
 				// populate the formatted completeDate
 				if(items[currentItem].completeDate != null){
 					try{
-						items[currentItem].completeDateStr = items[currentItem].completeDate.getFullYear() + '.' + ('00' + items[currentItem].completeDate.getMonth()).slice(-2) + '.' + ('00' + items[currentItem].completeDate.getDate()).slice(-2);
+						items[currentItem].completeDateStr = items[currentItem].completeDate.getFullYear() + '.' + ('00' + (items[currentItem].completeDate.getMonth() + 1)).slice(-2) + '.' + ('00' + items[currentItem].completeDate.getDate()).slice(-2);
 					}catch(ex){;}
 				}
 			}

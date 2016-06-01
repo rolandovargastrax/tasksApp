@@ -22,9 +22,9 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 	model: function() {
 		var results = {};
-		return Ember.$.getJSON('http://localhost:3000/status/complete').then(function(response){
+		return Ember.$.getJSON('http://localhost:3000/status/complete/completeDate').then(function(response){
 			results.completeTasks = response;
-			return Ember.$.getJSON('http://localhost:3000/status/cancelled').then(function(response){
+			return Ember.$.getJSON('http://localhost:3000/status/cancelled/completeDate').then(function(response){
 				results.cancelledTasks = response;
 				return results;
 			});
