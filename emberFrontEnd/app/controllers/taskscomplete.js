@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
 		var data = this.get('model');
 		return data;
 	}),
+	taskMode: '',
 
 	actions:{
 
@@ -14,26 +15,21 @@ export default Ember.Controller.extend({
 			this.send('reloadModel');
 		},
 
-	deleteAllCancelledTasks: function(){
+	deleteAllTasks: function(){
 		var currentController = this;
+		console.log(urlCall);
 		// delete the tasks from mongo
 		Ember.$.ajax({
 			type: "DELETE",
-			url: "http://localhost:3000/status/cancelled"
+			url: urlCall
 			}).then(function(){
 				currentController.send('refreshModel');
 			});
 		},
 
-	deleteAllCompleteTasks: function(){
+	setTaskMode: function(taskMode){
 		var currentController = this;
-		// delete the tasks from mongo
-		Ember.$.ajax({
-			type: "DELETE",
-			url: "http://localhost:3000/status/complete"
-			}).then(function(){
-				currentController.send('refreshModel');
-			});
+		currentController.set('taskMode', taskMode);
 		}
 
 	}

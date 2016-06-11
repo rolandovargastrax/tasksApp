@@ -9,10 +9,6 @@
 {{#if validationMessage}}
 <div class="errorMessage">{{validationMessage}}</div>
 {{/if}}
-<hr />
-
-
-
 
 <div>
 
@@ -45,8 +41,9 @@
 				</tbody>
 			</table>
 			{{#if tasks.completeTasks.items}}
-      			<p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCompleteTasks'}}>Delete All Complete Tasks</button></p>
-      		{{/if}}
+				<!-- <p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCompleteTasks'}}>Delete All Complete Tasks</button></p> -->
+				<p style="text-align:right;"><button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setTaskMode' 'complete'}}>Delete All Complete Tasks</button></p>
+			{{/if}}
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="cancelledtasks">
 			<br/>
@@ -69,16 +66,28 @@
 				</tbody>
 			</table>
 			{{#if tasks.cancelledTasks.items}}
-      			<p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCancelledTasks'}}>Delete All Cancelled Tasks</button></p>
-      		{{/if}}
+				<!-- <p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCancelledTasks'}}>Delete All Cancelled Tasks</button></p> -->
+				<p style="text-align:right;"><button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setTaskMode' 'cancelled'}}>Delete All Cancelled Tasks</button></p>
+			{{/if}}
 		</div>
 	</div>
 
 </div>
 
-
-
-
-
-
-
+<div class="modal fade confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+<!-- 	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Modal title</h4>
+	  </div>
+ -->	  <div class="modal-body">
+		<p>Are you sure you want to delete all {{taskMode}} tasks?</p>
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'deleteAllTasks'}}>Yes</button>
+	  </div>
+	</div>
+  </div>
+</div>
