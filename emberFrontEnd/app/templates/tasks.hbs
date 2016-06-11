@@ -1,37 +1,35 @@
 {{outlet}}
 
 <table width="100%" cellspacing="8" cellpadding="4px">
-  <tr>
-    <td class="small" colspan="3" style="text-align:right">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
-  </tr>
-  <tr>
-    <td width="100%">{{input class="inputTextField form-control" type="text" value=newTasKName insert-newline='addNewTask' placeholder="New Task Name" autofocus="autofocus"}}</td>
-    <td>&nbsp;&nbsp;</td>
-    <td><button class="btn btn-primary btn-sm" {{action 'addNewTask'}}>Add</button></td>
-  </tr>
+	<tr>
+		<td class="small" colspan="3" style="text-align:right">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
+	</tr>
+	<tr>
+		<td width="100%">{{input class="inputTextField form-control" type="text" value=newTasKName insert-newline='addNewTask' placeholder="New Task Name" autofocus="autofocus"}}</td>
+		<td>&nbsp;&nbsp;</td>
+		<td><button class="btn btn-primary btn-sm" {{action 'addNewTask'}}>Add</button></td>
+	</tr>
 </table>
 
 {{#if validationMessage}}
 <div class="errorMessage">{{validationMessage}}</div>
 {{/if}}
-<table width="100%" class="table">
-  <thead>
-    <tr>
-      <th>Task</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each tasks as |currentTask|}}
-    <tr>
-      <!-- <td style="vertical-align:top;">•&nbsp;&nbsp;</td> -->
-      <td>{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
-      <td style="vertical-align: top;"><button class="btn btn-link btn-sm" {{action 'updateTaskAsComplete' currentTask}}>Mark as Completed</button></td>
-      <td style="vertical-align: top;"><button class="btn btn-link btn-sm" {{action 'updateTaskAsCancelled' currentTask}}>Cancel Task</button></td>
-    </tr>
-    {{else}}
-    Hooray! No pending tasks.
-    {{/each}}
-  </tbody>
+<table width="100%" class="table table-condensed">
+	<thead>
+		<tr>
+			<th colspan="4">Task</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each tasks as |currentTask|}}
+		<tr>
+			<td>{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
+			<!-- <td style="vertical-align: top; text-align: right; width: 1%;"><button class="btn btn-link btn-sm glyphicon glyphicon-pencil" {{action 'editTask' currentTask}}></button></td> -->
+			<td style="vertical-align: top; text-align: right; width: 1%;"><button class="btn btn-link btn-sm glyphicon glyphicon-ok" {{action 'updateTaskAsComplete' currentTask}}></button></td>
+			<td style="vertical-align: top; text-align: right; width: 1%;"><button class="btn btn-link btn-sm glyphicon glyphicon-remove" {{action 'updateTaskAsCancelled' currentTask}}></button></td>
+		</tr>
+		{{else}}
+		Hooray! No pending tasks.
+		{{/each}}
+	</tbody>
 </table>
