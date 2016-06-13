@@ -16,8 +16,9 @@ export default Ember.Controller.extend({
 		},
 
 	deleteAllTasks: function(){
-		var currentController = this;
-		console.log(urlCall);
+    var currentController = this;
+    var urlCall = "http://localhost:3000/status/" + currentController.taskMode;
+		// console.log(urlCall);
 		// delete the tasks from mongo
 		Ember.$.ajax({
 			type: "DELETE",

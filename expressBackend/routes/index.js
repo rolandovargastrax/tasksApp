@@ -8,11 +8,11 @@ var url = 'mongodb://localhost:27017/test'
 
 // filters the tasks by status
 router.get('/status/:status/:sortField', function(req, res, next) {
-
 	// connect to the mongo database
+
 	MongoClient.connect(url, function(err, db){
 		if(db == null){
-			res.send(500, "Error connecting to database");
+			res.status(500).send("Error connecting to database");
 			return;
 		}
 		// assert.equal(null, err);
@@ -56,14 +56,14 @@ router.delete('/status/:status', function(req, res, next) {
 	// connect to the mongo database
 	MongoClient.connect(url, function(err, db){
 		if(db == null){
-			res.send(500, "Error connecting to database");
+			res.status(500).send("Error connecting to database");
 			return;
 		}
 		// assert.equal(null, err);
 		// console.log('Connected correctly to server.');
 		// call the find method
 		cursor = db.collection('tasks').deleteMany({"status": req.params.status}, function(err, results){
-			res.send(200, "Tasks deleted successfully");
+			res.status(200).send("Tasks deleted successfully");
 			db.close();
 		});
 	});
@@ -74,7 +74,7 @@ router.get('/task/:taskId', function(req, res){
 	// connect to the database
 	MongoClient.connect(url, function(err, db){
 		if(db == null){
-			res.send(500, "Error connecting to database");
+			res.status(500).send("Error connecting to database");
 			return;
 		}
 
@@ -93,7 +93,7 @@ router.post('/task/:taskId', function(req, res){
 
 	return MongoClient.connect(url, function(err,db){
 		if(db == null){
-			res.send(500, "Error connecting to database");
+			res.status(500).send("Error connecting to database");
 			return;
 		}
 		// assert.equal(null, err);
@@ -101,7 +101,7 @@ router.post('/task/:taskId', function(req, res){
 		db.collection('tasks').update({"_id": ObjectId(req.params.taskId)},   { $set: { "status": newStatus, "completeDate": new Date() } }, function(err){
 			// console.log('Task updated successfully');
 			db.close();
-			res.send("Task updated successfully");
+			res.status(200).send("Task updated successfully");
 		});
 	});
 });
@@ -119,7 +119,7 @@ router.put('/task/', function(req, res){
 	// return;
 	return MongoClient.connect(url, function(err, db){
 		if(db == null){
-			res.send(500, "Error connecting to database");
+			res.status(500).send("Error connecting to database");
 			return;
 		}
 		// assert.equal(null, err);
@@ -128,7 +128,7 @@ router.put('/task/', function(req, res){
 			assert.equal(null, err);
 			// console.log('task inserted successfully');
 			db.close();
-			res.send("task inserted successfully");
+			res.status(200).send("task inserted successfully");
 		});
 	});
 });
