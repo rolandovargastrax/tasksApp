@@ -89,7 +89,24 @@ router.get('/task/:taskId', function(req, res){
 // updates an existing task
 router.post('/task/:taskId', function(req, res){
 	request = req.body;
-	newStatus = request.status
+
+	// build update request
+	setJson = {};
+	fieldsToUpdate = {};
+	fieldsToUpdate.completeDate = new Date();
+	if(request.name != null && request.name.length > 0)
+	{
+		fieldsToUpdate.name = request.name
+	}
+	if(request.status != null && request.status.length > 0)
+	{
+		fieldsToUpdate.status = request.status;
+	}
+	if(request.project != null && request.project.length > 0)
+	{
+		fieldsToUpdate.project = request.project;
+	}
+	setJson.$set = fieldsToUpdate;
 
 	return MongoClient.connect(url, function(err,db){
 		if(db == null){
@@ -98,7 +115,8 @@ router.post('/task/:taskId', function(req, res){
 		}
 		// assert.equal(null, err);
 		// console.log('Connected correctly to server.');
-		db.collection('tasks').update({"_id": ObjectId(req.params.taskId)},   { $set: { "status": newStatus, "completeDate": new Date() } }, function(err){
+		// db.collection('tasks').update({"_id": ObjectId(req.params.taskId)},   { $set: { "status": newStatus, "completeDate": new Date() } }, function(err){
+		db.collection('tasks').update({"_id": ObjectId(req.params.taskId)}, setJson, function(err){
 			// console.log('Task updated successfully');
 			db.close();
 			res.status(200).send("Task updated successfully");

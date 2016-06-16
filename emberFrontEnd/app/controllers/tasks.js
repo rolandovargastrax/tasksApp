@@ -3,45 +3,75 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 	newTasKName: '',
 	validationMessage: '',
+	editingTask: {},
+	selectedProject: '',
 
 	tasks: Ember.computed('model', function() {
 		var data = this.get('model');
 		return data.items;
 	}),
 
+	projects: Ember.computed('model', function() {
+		// build list of unique projects for dropdown
+		var projectList = [];
+		var data = this.get('model');
+		for (var i = data.items.length - 1; i >= 0; i--) {
+			var currentItemProject = data.items[i].project;
+			if(currentItemProject != null && currentItemProject.length > 0){
+				if(!projectList.includes(currentItemProject)){
+					projectList.push(currentItemProject);
+				}
+			}
+		}
+		projectList = projectList.sort(-1);
+		return projectList;
+	}),
+
 	actions:{
+
+		selectProject: function(proj){
+			this.set('selectedProject', proj);
+		},
+
 		addNewTask: function(){
 			var currentController = this;
 			// var model = currentController.get('model');
 			var newTasKName = currentController.get('newTasKName');
-			// console.log(newTasKName);
+			console.log(currentController.selectedProject);
 			if(!newTasKName){
-			// set error message
-			currentController.set('validationMessage', 'Please provide a task name.');
-			return;
+				// set error message
+				currentController.set('validationMessage', 'Please provide a task name.');
+				return;
 			}
 			else {
-			// clear error message
-			currentController.set('validationMessage', '');
+				// clear error message
+				currentController.set('validationMessage', '');
 
-			// create a new task object to submit to mongo
-			var newTask = {};
-			newTask.name = newTasKName;
-			newTask.status = 'pending';
-			newTask.creationDate = new Date();
+				// create a new task object to submit to mongo
+				var newTask = {};
+				newTask.name = newTasKName;
+				newTask.status = 'pending';
+				newTask.project = currentController.selectedProject;
+				newTask.creationDate = new Date();
 
-			// add new task to mongo
-			Ember.$.ajax({
-				type: "PUT",
-				url: "http://localhost:3000/task",
-				data: newTask
-				}).then(function(){
-				// }).then(function(response){
-					// console.log(response);
-					currentController.set('newTasKName', '');
-					currentController.send('refreshModel');
-				});
+				// add new task to mongo
+				Ember.$.ajax({
+					type: "PUT",
+					url: "http://localhost:3000/task",
+					data: newTask
+					}).then(function(){
+					// }).then(function(response){
+						// console.log(response);
+						currentController.set('newTasKName', '');
+						currentController.send('refreshModel');
+					});
 			}
+		},
+
+		setCurrentTaskEditing: function(currentTask){
+			// make a copy of the object so the modal window doesn't update the grid as well
+			var clonedObject = JSON.parse(JSON.stringify(currentTask));
+			Ember.set(this, 'editingTask', clonedObject);
 		},
 
 		getYear: function(date) {
@@ -51,6 +81,27 @@ export default Ember.Controller.extend({
 		refreshModel: function() {
 			// console.log('Controller requesting route to refresh...');
 			this.send('reloadModel');
+		},
+
+		updateTask: function(){
+			var reqBody = {};
+			reqBody.name = this.editingTask.name;
+			reqBody.project = this.editingTask.project;
+			var taskId = this.editingTask._id;
+			var url = "http://localhost:3000/task/" + taskId;
+
+			// call the mongo service to update the task as complete
+			var currentController = this;
+			Ember.$.ajax({
+				type: "POST",
+				url: url,
+				data: reqBody
+				}).then(function(){
+				// }).then(function(response){
+					// console.log(response);
+					// refresh the list
+					currentController.send('refreshModel');
+					});
 		},
 
 		updateTaskAsComplete: function(task){
