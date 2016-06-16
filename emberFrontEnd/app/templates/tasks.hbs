@@ -2,7 +2,7 @@
 
 <table width="100%" cellspacing="8" cellpadding="4px">
 	<tr>
-		<td class="small" colspan="3" style="text-align:right">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
+		<td class="small" colspan="5" style="text-align:right">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
 	</tr>
 	<tr>
 		<td width="50%">
@@ -11,9 +11,7 @@
 		<td>&nbsp;&nbsp;</td>
 		<td width="50%">
 			<select placeholder="Select Project" class="form-control" onchange={{action "selectProject" value="target.value"}}>
-			<!-- <select class="form-control" id="sel1" style="width: 100%;" value=selectedProject> -->
 				<option></option>
-				<!-- <option disabled role=separator></option> -->
 				{{#each projects as |currentProject|}}
 					<option>{{currentProject}}</option>
 				{{/each}}
@@ -30,6 +28,7 @@
 <div class="errorMessage">{{validationMessage}}</div>
 {{/if}}
 <hr/>
+<div style="text-align: right; font-size:smaller">Pending tasks: {{tasks.length}}</div>
 <table width="100%" class="table table-condensed">
 	<thead>
 		<tr>

@@ -25,16 +25,16 @@
 			<table width="100%" cellspacing="2" cellpadding="2px" class="table table-condensed">
 				<thead>
 					<tr>
-						<th width="30%">Task</th>
-						<th width="30%">Project</th>
+						<th>Task</th>
+						<th>Project</th>
 						<th style="text-align: right;">Completed On</th>
 					</tr>
 				</thead>
 				<tbody>
 					{{#each tasks.completeTasks.items as |currentTask|}}
 					<tr>
-						<td>{{currentTask.name}}</td>
-						<td>{{currentTask.project}}</td>
+						<td style="text-align: left; width: 44%;">{{currentTask.name}}</td>
+						<td style="text-align: left; width: 44%;">{{currentTask.project}}</td>
 						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
 					</tr>
 					{{else}}
@@ -52,16 +52,16 @@
 				<table width="100%" cellspacing="2" cellpadding="2px" class="table table-condensed">
 				<thead>
 					<tr>
-						<th width="30%">Task</th>
-						<th width="30%">Project</th>
+						<th>Task</th>
+						<th>Project</th>
 						<th style="text-align: right;">Cancelled On</th>
 					</tr>
 				</thead>
 				<tbody>
 					{{#each tasks.cancelledTasks.items as |currentTask|}}
 					<tr>
-						<td>{{currentTask.name}}</td>
-						<td>{{currentTask.project}}</td>
+						<td style="text-align: left; width: 44%;">{{currentTask.name}}</td>
+						<td style="text-align: left; width: 44%;">{{currentTask.project}}</td>
 						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
 					</tr>
 					{{else}}
