@@ -5,10 +5,22 @@ export default Ember.Controller.extend({
 	validationMessage: '',
 	editingTask: {},
 	selectedProject: '',
+	filteredProject: '',
 
 	tasks: Ember.computed('model', function() {
+		var finalResult = [];
 		var data = this.get('model');
-		return data.items;
+		for (var currentTask = data.items.length - 1; currentTask >= 0; currentTask--) {
+			if(this.filteredProject.length > 0){
+				if(data.items[currentTask].project === this.filteredProject){
+					finalResult.push(data.items[currentTask]);
+				}
+			}
+			else{
+				finalResult.push(data.items[currentTask]);
+			}
+		}
+		return finalResult;
 	}),
 
 	projects: Ember.computed('model', function() {
@@ -31,6 +43,16 @@ export default Ember.Controller.extend({
 
 		selectProject: function(proj){
 			this.set('selectedProject', proj);
+		},
+
+		filterProject: function(proj){
+			this.set('filteredProject', proj);
+			this.send('refreshModel');
+		},
+
+		removeFilterProject: function(){
+			this.set('filteredProject', '');
+			this.send('refreshModel');
 		},
 
 		addNewTask: function(){

@@ -28,7 +28,20 @@
 <div class="errorMessage">{{validationMessage}}</div>
 {{/if}}
 <hr/>
-<div style="text-align: right; font-size:smaller">Pending tasks: {{tasks.length}}</div>
+<table width="100%" class="table table-condensed">
+	<tbody>
+		<tr>
+			<td>
+				{{#if filteredProject}}
+					<div style="text-align: left; font-size:small"><button class="btn btn-link btn-xs" {{action 'removeFilterProject'}}>Remove Filter by '{{filteredProject}}'</button></div>
+				{{/if}}
+			</td>
+			<td>
+				<div style="text-align: right; font-size:small">Pending tasks: {{tasks.length}}</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
 <table width="100%" class="table table-condensed">
 	<thead>
 		<tr>
@@ -40,7 +53,7 @@
 		{{#each tasks as |currentTask|}}
 		<tr>
 			<td style="text-align: left; width: 50%;">{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
-			<td style="text-align: left; width: 50%;">{{currentTask.project}}</td>
+			<td style="text-align: left; width: 50%;"><button class="btn btn-link btn-xs" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</button></td>
 			<td style="vertical-align: top; text-align: right; width: 1%;">
 
 			<button class="btn btn-link btn-xs glyphicon glyphicon-pencil" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}></button></td>
