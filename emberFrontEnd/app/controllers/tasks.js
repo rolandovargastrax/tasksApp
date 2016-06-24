@@ -23,12 +23,15 @@ export default Ember.Controller.extend({
 		return finalResult;
 	}),
 
-	projects: Ember.computed('model', function() {
+	projects: Ember.computed('tasks', function() {
+    // remove previously selected project
+    // this.set('selectedProject', '');
+
 		// build list of unique projects for dropdown
 		var projectList = [];
-		var data = this.get('model');
-		for (var i = data.items.length - 1; i >= 0; i--) {
-			var currentItemProject = data.items[i].project;
+		var data = this.get('tasks');
+		for (var i = data.length - 1; i >= 0; i--) {
+			var currentItemProject = data[i].project;
 			if(currentItemProject != null && currentItemProject.length > 0){
 				if(!projectList.includes(currentItemProject)){
 					projectList.push(currentItemProject);
@@ -42,12 +45,14 @@ export default Ember.Controller.extend({
 	actions:{
 
 		selectProject: function(proj){
-			this.set('selectedProject', proj);
-		},
+      this.set('selectedProject', proj);
+      this.send('refreshModel');
+    },
 
-		filterProject: function(proj){
-			this.set('filteredProject', proj);
-			this.send('refreshModel');
+    filterProject: function(proj){
+			this.set('selectedProject', proj);
+      this.set('filteredProject', proj);
+      this.send('refreshModel');
 		},
 
 		removeFilterProject: function(){
@@ -59,7 +64,6 @@ export default Ember.Controller.extend({
 			var currentController = this;
 			// var model = currentController.get('model');
 			var newTasKName = currentController.get('newTasKName');
-			console.log(currentController.selectedProject);
 			if(!newTasKName){
 				// set error message
 				currentController.set('validationMessage', 'Please provide a task name.');
@@ -128,12 +132,10 @@ export default Ember.Controller.extend({
 
 		updateTaskAsComplete: function(task){
 			var currentController = this;
-			// console.log('task:' + JSON.stringify(task));
 			var reqBody = {};
 			reqBody.status = 'complete';
 			var taskId = task._id;
 			var url = "http://localhost:3000/task/" + taskId;
-			// console.log(url);
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({
@@ -150,12 +152,11 @@ export default Ember.Controller.extend({
 
 		updateTaskAsCancelled: function(task){
 			var currentController = this;
-			// console.log('task:' + JSON.stringify(task));
 			var reqBody = {};
 			reqBody.status = 'cancelled';
 			var taskId = task._id;
-			var url = "http://localhost:3000/task/" + taskId;
 			// console.log(url);
+      var url = "http://localhost:3000/task/" + taskId;
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({
