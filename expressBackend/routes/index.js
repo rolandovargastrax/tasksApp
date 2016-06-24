@@ -4,7 +4,10 @@ var router = express.Router();
 var MongoClient = require('mongodb').MongoClient
 var assert = require('assert')
 var ObjectId = require('mongodb').ObjectId
-var url = 'mongodb://localhost:27017/test'
+
+// import configuration file
+var config = require('../config.json');
+var url = config.mongodb;
 
 var getTasksImplementation = function(res, status, sortField, direction){
 	// connect to mongo database
@@ -17,7 +20,7 @@ var getTasksImplementation = function(res, status, sortField, direction){
 			direction = 1;
 		}
 		if(sortField === null){
-			sortField = "creationDate";
+			sortField = config.creationDate;
 		}
 		sortJson = {}
 		sortJson[sortField] = parseInt(direction);
@@ -59,20 +62,20 @@ var getTasksImplementation = function(res, status, sortField, direction){
 
 
 // filters the tasks by status
-router.get('/status/:status', function(req, res, next) {
+router.get('/task/status/:status', function(req, res, next) {
 	getTasksImplementation(res, req.params.status, "name", 1);
 });
-router.get('/status/:status/:sortField', function(req, res, next) {
+router.get('/task/status/:status/:sortField', function(req, res, next) {
 	getTasksImplementation(res, req.params.status, req.params.sortField, 1);
 });
-router.get('/status/:status/:sortField/:direction', function(req, res, next) {
+router.get('/task/status/:status/:sortField/:direction', function(req, res, next) {
 	getTasksImplementation(res, req.params.status, req.params.sortField, req.params.direction);
 });
 
 
 
 // delete all the tasks for a given status
-router.delete('/status/:status', function(req, res, next) {
+router.delete('/task/status/:status', function(req, res, next) {
 	// connect to the mongo database
 	MongoClient.connect(url, function(err, db){
 		if(db == null){
