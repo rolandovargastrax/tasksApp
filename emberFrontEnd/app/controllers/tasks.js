@@ -46,11 +46,12 @@ export default Ember.Controller.extend({
 
 		selectProject: function(proj){
       this.set('selectedProject', proj);
+      this.set('filteredProject', proj);
       this.send('refreshModel');
     },
 
     filterProject: function(proj){
-			this.set('selectedProject', proj);
+      this.set('selectedProject', proj);
       this.set('filteredProject', proj);
       this.send('refreshModel');
 		},
