@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from '../config/environment';
 
 export default Ember.Controller.extend({
 	newTasKName: '',
@@ -84,11 +85,10 @@ export default Ember.Controller.extend({
 				// add new task to mongo
 				Ember.$.ajax({
 					type: "PUT",
-					url: "http://localhost:3000/task",
+					url: ENV.backEndBaseUrl,
 					data: newTask
 					}).then(function(){
 					// }).then(function(response){
-						// console.log(response);
 						currentController.set('newTasKName', '');
 						currentController.send('refreshModel');
 					});
@@ -115,7 +115,7 @@ export default Ember.Controller.extend({
 			reqBody.name = this.editingTask.name;
 			reqBody.project = this.editingTask.project;
 			var taskId = this.editingTask._id;
-			var url = "http://localhost:3000/task/" + taskId;
+			var url = ENV.backEndBaseUrl + taskId;
 
 			// call the mongo service to update the task as complete
 			var currentController = this;
@@ -136,7 +136,7 @@ export default Ember.Controller.extend({
 			var reqBody = {};
 			reqBody.status = 'complete';
 			var taskId = task._id;
-			var url = "http://localhost:3000/task/" + taskId;
+			var url = ENV.backEndBaseUrl + taskId;
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({
@@ -157,7 +157,7 @@ export default Ember.Controller.extend({
 			reqBody.status = 'cancelled';
 			var taskId = task._id;
 			// console.log(url);
-      var url = "http://localhost:3000/task/" + taskId;
+      var url = ENV.backEndBaseUrl + taskId;
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({

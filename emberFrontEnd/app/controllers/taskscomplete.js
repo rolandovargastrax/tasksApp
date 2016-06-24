@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from '../config/environment';
 
 export default Ember.Controller.extend({
 
@@ -17,7 +18,7 @@ export default Ember.Controller.extend({
 
 		deleteAllTasks: function(){
 		var currentController = this;
-		var urlCall = "http://localhost:3000/status/" + currentController.taskMode;
+		var urlCall = ENV.backEndBaseUrl + "status/" + currentController.taskMode;
 			// console.log(urlCall);
 			// delete the tasks from mongo
 			Ember.$.ajax({
@@ -35,12 +36,10 @@ export default Ember.Controller.extend({
 
 	resurrectTask: function(task){
 			var currentController = this;
-			// console.log('task:' + JSON.stringify(task));
 			var reqBody = {};
 			reqBody.status = 'pending';
 			var taskId = task._id;
-			var url = "http://localhost:3000/task/" + taskId;
-			// console.log(url);
+			var url = ENV.backEndBaseUrl + taskId;
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({
