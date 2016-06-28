@@ -58,7 +58,8 @@ export default Ember.Controller.extend({
 		},
 
 		removeFilterProject: function(){
-			this.set('filteredProject', '');
+      this.set('filteredProject', '');
+			this.set('selectedProject', '');
 			this.send('refreshModel');
 		},
 
