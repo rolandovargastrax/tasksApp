@@ -14,6 +14,12 @@ body {
 }
 
 .dateClass {
-	color:gray;
-	font-size:smaller;
+  color:gray;
+  font-size:smaller;
+}
+
+.noUnderLine
+{
+  text-decoration: none;
+  cursor: pointer;
 }

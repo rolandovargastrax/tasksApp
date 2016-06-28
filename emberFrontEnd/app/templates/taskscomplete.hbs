@@ -37,7 +37,8 @@
             <td style="text-align: left; width: 42%;">{{currentTask.name}}</td>
             <td style="text-align: left; width: 42%;">{{currentTask.project}}</td>
             <td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
-            <td style="vertical-align: top; text-align: right; width: 1%;"><button title="Move to Pending Tasks" class="btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></button></td>
+            {{!-- <td style="vertical-align: top; text-align: right; width: 1%;"><button title="Move to Pending Tasks" class="btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></button></td> --}}
+            <td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Move to Pending Tasks" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></a></td>
           </tr>
           {{else}}
           No complete tasks.
@@ -66,7 +67,7 @@
             <td style="text-align: left; width: 42%;">{{currentTask.name}}</td>
             <td style="text-align: left; width: 42%;">{{currentTask.project}}</td>
             <td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
-            <td style="vertical-align: top; text-align: right; width: 1%;"><button class="btn btn-link btn-xs glyphicon glyphicon-remove" title="Move to Pending Tasks" {{action 'resurrectTask' currentTask}}></button></td>
+            <td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Move to Pending Tasks" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></a></td>
           </tr>
           {{else}}
           No cancelled tasks.
@@ -93,8 +94,8 @@
     <p>Are you sure you want to delete all {{taskMode}} tasks?</p>
     </div>
     <div class="modal-footer">
-    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'deleteAllTasks'}}>Yes</button>
+    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'deleteAllTasks'}}>Delete</button>
     </div>
   </div>
   </div>

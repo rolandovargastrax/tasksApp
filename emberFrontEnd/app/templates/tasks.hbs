@@ -2,7 +2,7 @@
 
 <table width="100%" cellspacing="8" cellpadding="4px" class="table table-condensed">
   <tr>
-    <td class="small" colspan="5" style="text-align:right">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
+    <td class="small noUnderLine" colspan="5" style="text-align:right; text-decoration:none;">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
   </tr>
   <tr>
     <td width="50%">
@@ -30,9 +30,9 @@
     </td>
     <td>&nbsp;&nbsp;</td>
     <td width="50%">
-        {{#if filteredProject}}
-          <div style="text-align: left; font-size:small"><button class="btn btn-link btn-xs" {{action 'removeFilterProject'}}>Remove Filter by '{{filteredProject}}'</button></div>
-        {{/if}}
+      {{#if filteredProject}}
+        <div style="text-align: left; font-size:small"><button class="btn btn-link btn-xs" {{action 'removeFilterProject'}}>Remove Filter by '{{filteredProject}}'</button></div>
+      {{/if}}
     </td>
     <td>&nbsp;&nbsp;</td>
     <td></td>
@@ -42,22 +42,6 @@
 <div class="errorMessage">{{validationMessage}}</div>
 {{/if}}
 <hr/>
-{{!--
-<table width="100%" class="table table-condensed">
-  <tbody>
-    <tr>
-      <td>
-        {{#if filteredProject}}
-        <div style="text-align: left; font-size:small"><button class="btn btn-link btn-xs" {{action 'removeFilterProject'}}>Remove Filter by '{{filteredProject}}'</button></div>
-        {{/if}}
-      </td>
-      <td>
-        <div style="text-align: right; font-size:small">Pending tasks: {{tasks.length}}</div>
-      </td>
-    </tr>
-  </tbody>
-</table> --}}
-
 <div style="text-align: right; font-size:smaller">Pending tasks: {{tasks.length}}</div>
 
 <table width="100%" class="table table-condensed">
@@ -69,15 +53,13 @@
   </thead>
   <tbody>
     {{#each tasks as |currentTask|}}
-    <tr>
-      <td style="text-align: left; width: 50%;">{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
-      <td style="text-align: left; width: 50%;"><button class="btn btn-link btn-xs" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</button></td>
-      <td style="vertical-align: top; text-align: right; width: 1%;">
-
-        <button title="Edit Task" class="btn btn-link btn-xs glyphicon glyphicon-pencil" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}></button></td>
-        <!--      <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}>Delete All Cancelled Tasks</button></p>-->
-        <td style="vertical-align: top; text-align: right; width: 1%;"><button title="Complete Task" class="btn btn-link btn-xs glyphicon glyphicon-ok" {{action 'updateTaskAsComplete' currentTask}}></button></td>
-        <td style="vertical-align: top; text-align: right; width: 1%;"><button title="Cancel Task" class="btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'updateTaskAsCancelled' currentTask}}></button></td>
+      <tr>
+        <td style="text-align: left; width: 50%;">{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
+        <td style="text-align: left; width: 50%;"><button class="btn btn-link btn-xs" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</button></td>
+        {{!-- <td style="text-align: left; width: 50%;"><a class="noUnderLine" style="text-decoration: none" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</a></td> --}}
+        <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Edit Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-pencil" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}></a></td>
+        <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Complete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-ok" {{action 'updateTaskAsComplete' currentTask}}></a></td>
+        <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Cancel Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'updateTaskAsCancelled' currentTask}}></a></td>
       </tr>
       {{else}}
       Hooray! No pending tasks.
