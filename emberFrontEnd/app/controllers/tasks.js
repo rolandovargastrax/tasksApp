@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ENV from '../config/environment';
 
+
+
 export default Ember.Controller.extend({
 	newTasKName: '',
 	validationMessage: '',
@@ -46,19 +48,19 @@ export default Ember.Controller.extend({
 	actions:{
 
 		selectProject: function(proj){
-      this.set('selectedProject', proj);
-      this.set('filteredProject', proj);
-      this.send('refreshModel');
-    },
+			this.set('selectedProject', proj);
+			this.set('filteredProject', proj);
+			this.send('refreshModel');
+		},
 
-    filterProject: function(proj){
-      this.set('selectedProject', proj);
-      this.set('filteredProject', proj);
-      this.send('refreshModel');
+		filterProject: function(proj){
+			this.set('selectedProject', proj);
+			this.set('filteredProject', proj);
+			this.send('refreshModel');
 		},
 
 		removeFilterProject: function(){
-      this.set('filteredProject', '');
+			this.set('filteredProject', '');
 			this.set('selectedProject', '');
 			this.send('refreshModel');
 		},
@@ -88,7 +90,7 @@ export default Ember.Controller.extend({
 					type: "PUT",
 					url: ENV.backEndBaseUrl,
 					data: newTask
-					}).then(function(){
+				}).then(function(){
 					// }).then(function(response){
 						currentController.set('newTasKName', '');
 						currentController.send('refreshModel');
@@ -124,12 +126,12 @@ export default Ember.Controller.extend({
 				type: "POST",
 				url: url,
 				data: reqBody
-				}).then(function(){
+			}).then(function(){
 				// }).then(function(response){
 					// console.log(response);
 					// refresh the list
 					currentController.send('refreshModel');
-					});
+				});
 		},
 
 		updateTaskAsComplete: function(task){
@@ -144,12 +146,12 @@ export default Ember.Controller.extend({
 				type: "POST",
 				url: url,
 				data: reqBody
-				}).then(function(){
+			}).then(function(){
 				// }).then(function(response){
 					// console.log(response);
 					// refresh the list
 					currentController.send('refreshModel');
-					});
+				});
 		},
 
 		updateTaskAsCancelled: function(task){
@@ -158,20 +160,25 @@ export default Ember.Controller.extend({
 			reqBody.status = 'cancelled';
 			var taskId = task._id;
 			// console.log(url);
-      var url = ENV.backEndBaseUrl + taskId;
+			var url = ENV.backEndBaseUrl + taskId;
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({
 				type: "POST",
 				url: url,
 				data: reqBody
-				}).then(function(){
+			}).then(function(){
 				// }).then(function(response){
 					// console.log(response);
 					// refresh the list
 					currentController.send('refreshModel');
-					});
+				});
 		}
 
+		// focusOnAddText2: function(){
+		// 	document.getElementById("addTaskTextField").focus();
+		// }
+
 	}
+
 });
