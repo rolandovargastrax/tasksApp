@@ -174,4 +174,21 @@ router.put('/task/', function(req, res){
 	});
 });
 
+
+// delete task
+router.delete('/task/:taskId', function(req, res){
+	return MongoClient.connect(url, function(err, db){
+		if(db == null){
+			res.status(500).send("Error connecting to database");
+			return;
+		}
+
+		doc = db.collection('tasks').deleteOne({"_id": ObjectId(req.params.taskId)}, function(err, doc){
+			// res.json(doc);
+			db.close();
+			res.status(200).send("task deleted successfully");
+		});
+	});
+});
+
 module.exports = router;

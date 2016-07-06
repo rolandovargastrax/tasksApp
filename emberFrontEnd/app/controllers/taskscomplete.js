@@ -34,16 +34,35 @@ export default Ember.Controller.extend({
 		currentController.set('taskMode', taskMode);
 		},
 
-	resurrectTask: function(task){
+  resurrectTask: function(task){
+      var currentController = this;
+      var reqBody = {};
+      reqBody.status = 'pending';
+      var taskId = task._id;
+      var url = ENV.backEndBaseUrl + taskId;
+
+      // call the mongo service to update the task as complete
+      Ember.$.ajax({
+        type: "POST",
+        url: url,
+        data: reqBody
+        }).then(function(){
+        // }).then(function(response){
+          // console.log(response);
+          // refresh the list
+          currentController.send('refreshModel');
+          });
+    },
+
+	deleteTask: function(task){
 			var currentController = this;
 			var reqBody = {};
-			reqBody.status = 'pending';
 			var taskId = task._id;
 			var url = ENV.backEndBaseUrl + taskId;
 
 			// call the mongo service to update the task as complete
 			Ember.$.ajax({
-				type: "POST",
+				type: "DELETE",
 				url: url,
 				data: reqBody
 				}).then(function(){
