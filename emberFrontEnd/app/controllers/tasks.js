@@ -117,6 +117,7 @@ export default Ember.Controller.extend({
 			var reqBody = {};
 			reqBody.name = this.editingTask.name;
 			reqBody.project = this.editingTask.project;
+      reqBody.pendingDeployment = this.editingTask.pendingDeployment;
 			var taskId = this.editingTask._id;
 			var url = ENV.backEndBaseUrl + taskId;
 
@@ -174,10 +175,6 @@ export default Ember.Controller.extend({
 					currentController.send('refreshModel');
 				});
 		}
-
-		// focusOnAddText2: function(){
-		// 	document.getElementById("addTaskTextField").focus();
-		// }
 
 	}
 

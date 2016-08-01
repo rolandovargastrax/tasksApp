@@ -57,6 +57,11 @@
         <td style="text-align: left; width: 50%;">{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
         <td style="text-align: left; width: 50%;"><button class="btn btn-link btn-xs" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</button></td>
         {{!-- <td style="text-align: left; width: 50%;"><a class="noUnderLine" style="text-decoration: none" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</a></td> --}}
+        <td style="vertical-align: top; text-align: right; width: 1%;">
+          {{#if currentTask.pendingDeployment}}
+            <span class="label label-primary">Pending Deployment</span>
+          {{/if}}
+        </td>
         <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Edit Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-pencil" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}></a></td>
         <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Complete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-ok" {{action 'updateTaskAsComplete' currentTask}}></a></td>
         <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Cancel Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'updateTaskAsCancelled' currentTask}}></a></td>
@@ -82,8 +87,15 @@
               </td>
             </tr>
             <tr>
-              <td width="100%">Project
+              <td  style="padding-top: 10px" width="100%">Project
                 {{input class="inputTextField form-control" type="text" value=editingTask.project placeholder="Project"}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 10px">
+                <label style="font-weight=normal;">
+                  {{input type="checkbox" checked=editingTask.pendingDeployment}} Pending Deployment
+                </label>
               </td>
             </tr>
             <tr></tr>
