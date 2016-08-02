@@ -4,9 +4,26 @@ import KeyboardShortcuts from 'ember-keyboard-shortcuts/mixins/route';
 
 export default Ember.Route.extend(KeyboardShortcuts, {
 	model: function() {
-		return Ember.$.getJSON(ENV.backEndBaseUrl + 'status/pending/creationDate/1').then(function(response){
-			return response;
-		});
+		try{
+			var getCallUrl = ENV.backEndBaseUrl + 'status/pending/creationDate/1';
+			return Ember.$.ajax({
+				type: "GET",
+	      url: getCallUrl,
+	      success: function(response) {
+	      	return response;
+	      },
+	      error: function(err) {
+	      	var results = {};
+	      	results.items = [];
+	      	return results;
+	      }
+	    });
+		}
+		catch(err){
+			var results = {};
+    	results.items = [];
+    	return results;
+		}
 	},
 
 	actions: {

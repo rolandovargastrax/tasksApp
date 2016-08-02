@@ -1,5 +1,10 @@
 {{outlet}}
 
+{{#if alertMessage}}
+<div class="alert alert-danger" role="alert">{{alertMessage}}</div>
+{{/if}}
+
+
 <table width="100%" cellspacing="8" cellpadding="4px" class="table table-condensed">
   <tr>
     <td class="small noUnderLine" colspan="5" style="text-align:right; text-decoration:none;">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
