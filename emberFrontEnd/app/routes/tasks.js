@@ -15,6 +15,7 @@ export default Ember.Route.extend(KeyboardShortcuts, {
 	      error: function(err) {
 	      	var results = {};
 	      	results.items = [];
+          console.log(err);
 	      	return results;
 	      }
 	    });
