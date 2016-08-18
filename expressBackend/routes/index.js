@@ -129,11 +129,16 @@ router.post('/task/:taskId', function(req, res){
 	{
 		fieldsToUpdate.project = request.project;
 	}
-	if(request.pendingDeployment != null && request.pendingDeployment.length > 0)
+	if(request.pendingDeployment != null && request.pendingDeployment.length > 0 && request.pendingDeployment === "true")
 	{
-		fieldsToUpdate.pendingDeployment = request.pendingDeployment;
+		fieldsToUpdate.pendingDeployment = true;
 	}
-	setJson.$set = fieldsToUpdate;
+	else{
+		fieldsToUpdate.pendingDeployment = false;
+	}
+
+	console.log(JSON.stringify(fieldsToUpdate));
+
 	setJson.$set = fieldsToUpdate;
 
 	return MongoClient.connect(url, function(err,db){
