@@ -6,42 +6,42 @@
 
 
 <table width="100%" cellspacing="8" cellpadding="4px" class="table table-condensed">
-  <tr>
-    <td class="small noUnderLine" colspan="5" style="text-align:right; text-decoration:none;">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
-  </tr>
-  <tr>
-    <td width="50%">
-      {{input id="addTaskTextField" class="inputTextField form-control" type="text" value=newTasKName insert-newline='addNewTask' placeholder="New Task Name" autofocus="autofocus"}}
-    </td>
-    <td>&nbsp;&nbsp;</td>
-    <td width="50%">
-      <select placeholder="Select Project" class="form-control" onchange={{action "selectProject" value="target.value"}}>
-        {{#if filteredProject}}
-        <option selected="selected">{{filteredProject}}</option>
-        {{else}}
-        <option></option>
-        {{#each projects as |currentProject|}}
-        <option>{{currentProject}}</option>
-        {{/each}}
-        {{/if}}
-      </select>
-      <!-- {{input class="inputTextField form-control" type="text" value=newTasKName insert-newline='addNewTask' placeholder="New Task Name"}} -->
-    </td>
-    <td>&nbsp;&nbsp;</td>
-    <td><button class="btn btn-primary btn-sm" {{action 'addNewTask'}}>Add Task</button></td>
-  </tr>
-  <tr>
-    <td width="50%">
-    </td>
-    <td>&nbsp;&nbsp;</td>
-    <td width="50%">
-      {{#if filteredProject}}
-        <div style="text-align: left; font-size:small"><button class="btn btn-link btn-xs" {{action 'removeFilterProject'}}>Remove Filter by '{{filteredProject}}'</button></div>
-      {{/if}}
-    </td>
-    <td>&nbsp;&nbsp;</td>
-    <td></td>
-  </tr>
+	<tr>
+		<td class="small noUnderLine" colspan="5" style="text-align:right; text-decoration:none;">{{link-to 'Show Complete / Cancelled Tasks' 'taskscomplete'}}<br/><br/></td>
+	</tr>
+	<tr>
+		<td width="50%">
+			{{input id="addTaskTextField" class="inputTextField form-control" type="text" value=newTasKName insert-newline='addNewTask' placeholder="New Task Name" autofocus="autofocus"}}
+		</td>
+		<td>&nbsp;&nbsp;</td>
+		<td width="50%">
+			<select placeholder="Select Project" class="form-control" onchange={{action "selectProject" value="target.value"}}>
+				{{#if filteredProject}}
+				<option selected="selected">{{filteredProject}}</option>
+				{{else}}
+				<option></option>
+				{{#each projects as |currentProject|}}
+				<option>{{currentProject}}</option>
+				{{/each}}
+				{{/if}}
+			</select>
+			<!-- {{input class="inputTextField form-control" type="text" value=newTasKName insert-newline='addNewTask' placeholder="New Task Name"}} -->
+		</td>
+		<td>&nbsp;&nbsp;</td>
+		<td><button class="btn btn-primary btn-sm" {{action 'addNewTask'}}>Add Task</button></td>
+	</tr>
+	<tr>
+		<td width="50%">
+		</td>
+		<td>&nbsp;&nbsp;</td>
+		<td width="50%">
+			{{#if filteredProject}}
+				<div style="text-align: left; font-size:small"><button class="btn btn-link btn-xs" {{action 'removeFilterProject'}}>Remove Filter by '{{filteredProject}}'</button></div>
+			{{/if}}
+		</td>
+		<td>&nbsp;&nbsp;</td>
+		<td></td>
+	</tr>
 </table>
 {{#if validationMessage}}
 <div class="errorMessage">{{validationMessage}}</div>
@@ -50,66 +50,66 @@
 <div style="text-align: right; font-size:smaller">Pending tasks: {{tasks.length}}</div>
 
 <table width="100%" class="table table-condensed">
-  <thead>
-    <tr>
-      <th>Task</th>
-      <th colspan="4">Project</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each tasks as |currentTask|}}
-      <tr>
-        <td style="text-align: left; width: 50%;">{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
-        <td style="text-align: left; width: 50%;"><button class="btn btn-link btn-xs" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</button></td>
-        {{!-- <td style="text-align: left; width: 50%;"><a class="noUnderLine" style="text-decoration: none" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</a></td> --}}
-        <td style="vertical-align: top; text-align: right; width: 1%;">
-          {{#if currentTask.pendingDeployment}}
-            <span class="label label-primary">Pending Deployment</span>
-          {{/if}}
-        </td>
-        <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Edit Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-pencil" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}></a></td>
-        <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Complete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-ok" {{action 'updateTaskAsComplete' currentTask}}></a></td>
-        <td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Cancel Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'updateTaskAsCancelled' currentTask}}></a></td>
-      </tr>
-      {{else}}
-      Hooray! No pending tasks.
-      {{/each}}
-    </tbody>
-  </table>
+	<thead>
+		<tr>
+			<th>Task</th>
+			<th colspan="4">Project</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each tasks as |currentTask|}}
+			<tr>
+				<td style="text-align: left; width: 50%;">{{currentTask.name}}<div class="dateClass">{{currentTask.creationDateStr}}</div></td>
+				<td style="text-align: left; width: 50%;"><button class="btn btn-link btn-xs" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</button></td>
+				{{!-- <td style="text-align: left; width: 50%;"><a class="noUnderLine" style="text-decoration: none" {{action 'filterProject' currentTask.project}}>{{currentTask.project}}</a></td> --}}
+				<td style="vertical-align: top; text-align: right; width: 1%;">
+					{{#if currentTask.pendingDeployment}}
+						<span class="label label-primary">Pending Deployment</span>
+					{{/if}}
+				</td>
+				<td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Edit Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-pencil" data-toggle="modal" data-target=".confirmationModal" {{action 'setCurrentTaskEditing' currentTask}}></a></td>
+				<td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Complete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-ok" {{action 'updateTaskAsComplete' currentTask}}></a></td>
+				<td style="vertical-align: top; text-align: right; width: 1%;"><a style="text-decoration:none" title="Cancel Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'updateTaskAsCancelled' currentTask}}></a></td>
+			</tr>
+			{{else}}
+			Hooray! No pending tasks.
+			{{/each}}
+		</tbody>
+	</table>
 
-  <div class="modal fade confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Edit Task</h4>
-        </div>
-        <div class="modal-body">
-          <table width="100%">
-            <tr>
-              <td width="100%">Task Name
-                {{input class="inputTextField form-control" type="text" value=editingTask.name placeholder="Task Name"}}
-              </td>
-            </tr>
-            <tr>
-              <td  style="padding-top: 10px" width="100%">Project
-                {{input class="inputTextField form-control" type="text" value=editingTask.project placeholder="Project"}}
-              </td>
-            </tr>
-            <tr>
-              <td style="padding-top: 10px">
-                <label style="font-weight=normal;">
-                  {{input type="checkbox" checked=editingTask.pendingDeployment}} Pending Deployment
-                </label>
-              </td>
-            </tr>
-            <tr></tr>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'updateTask'}}>Update</button>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="modal fade confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Edit Task</h4>
+				</div>
+				<div class="modal-body">
+					<table width="100%">
+						<tr>
+							<td width="100%">Task Name
+								{{input class="inputTextField form-control" type="text" value=editingTask.name placeholder="Task Name"}}
+							</td>
+						</tr>
+						<tr>
+							<td  style="padding-top: 10px" width="100%">Project
+								{{input class="inputTextField form-control" type="text" value=editingTask.project placeholder="Project"}}
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-top: 10px">
+								<label style="font-weight=normal;">
+									{{input type="checkbox" checked=editingTask.pendingDeployment}} Pending Deployment
+								</label>
+							</td>
+						</tr>
+						<tr></tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'updateTask'}}>Update</button>
+				</div>
+			</div>
+		</div>
+	</div>

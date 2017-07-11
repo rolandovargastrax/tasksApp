@@ -1,9 +1,9 @@
 {{outlet}}
 
 <table width="100%" cellspacing="8" cellpadding="2px">
-  <tr>
-    <td class="small" style="text-align:right">{{link-to 'Back to Add Tasks' 'tasks'}}</td>
-  </tr>
+	<tr>
+		<td class="small" style="text-align:right">{{link-to 'Back to Add Tasks' 'tasks'}}</td>
+	</tr>
 </table>
 
 {{#if validationMessage}}
@@ -12,93 +12,93 @@
 
 <div>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#completetasks" aria-controls="completetasks" role="tab" data-toggle="tab">Complete Tasks</a></li>
-    <li role="presentation"><a href="#cancelledtasks" aria-controls="cancelledtasks" role="tab" data-toggle="tab">Cancelled Tasks</a></li>
-  </ul>
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#completetasks" aria-controls="completetasks" role="tab" data-toggle="tab">Complete Tasks</a></li>
+		<li role="presentation"><a href="#cancelledtasks" aria-controls="cancelledtasks" role="tab" data-toggle="tab">Cancelled Tasks</a></li>
+	</ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="completetasks">
-      <br/>
-      <table width="100%" cellspacing="2" cellpadding="2px" class="table table-condensed">
-        <thead>
-          <tr>
-            <th>Task</th>
-            <th>Project</th>
-            <th style="text-align: right;">Completed On</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each tasks.completeTasks.items as |currentTask|}}
-          <tr>
-            <td style="text-align: left; width: 40%;">{{currentTask.name}}</td>
-            <td style="text-align: left; width: 40%;">{{currentTask.project}}</td>
-            <td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
-            {{!-- <td style="vertical-align: top; text-align: right; width: 1%;"><button title="Move to Pending Tasks" class="btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></button></td> --}}
-            <td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Move to Pending Tasks" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></a></td>
-            <td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Delete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-trash" {{action 'deleteTask' currentTask}}></a></td>
-          </tr>
-          {{else}}
-          No complete tasks.
-          {{/each}}
-        </tbody>
-      </table>
-      {{#if tasks.completeTasks.items}}
-        <!-- <p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCompleteTasks'}}>Delete All Complete Tasks</button></p> -->
-        <p style="text-align:right;"><button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setTaskMode' 'complete'}}>Delete All Complete Tasks</button></p>
-      {{/if}}
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="cancelledtasks">
-      <br/>
-        <table width="100%" cellspacing="2" cellpadding="2px" class="table table-condensed">
-        <thead>
-          <tr>
-            <th>Task</th>
-            <th>Project</th>
-            <th style="text-align: right;">Cancelled On</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each tasks.cancelledTasks.items as |currentTask|}}
-          <tr>
-            <td style="text-align: left; width: 40%;">{{currentTask.name}}</td>
-            <td style="text-align: left; width: 40%;">{{currentTask.project}}</td>
-            <td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
-            <td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Move to Pending Tasks" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></a></td>
-            <td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Delete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-trash" {{action 'deleteTask' currentTask}}></a></td>
-          </tr>
-          {{else}}
-          No cancelled tasks.
-          {{/each}}
-        </tbody>
-      </table>
-      {{#if tasks.cancelledTasks.items}}
-        <!-- <p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCancelledTasks'}}>Delete All Cancelled Tasks</button></p> -->
-        <p style="text-align:right;"><button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setTaskMode' 'cancelled'}}>Delete All Cancelled Tasks</button></p>
-      {{/if}}
-    </div>
-  </div>
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="completetasks">
+			<br/>
+			<table width="100%" cellspacing="2" cellpadding="2px" class="table table-condensed">
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Project</th>
+						<th style="text-align: right;">Completed On</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each tasks.completeTasks.items as |currentTask|}}
+					<tr>
+						<td style="text-align: left; width: 40%;">{{currentTask.name}}</td>
+						<td style="text-align: left; width: 40%;">{{currentTask.project}}</td>
+						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
+						{{!-- <td style="vertical-align: top; text-align: right; width: 1%;"><button title="Move to Pending Tasks" class="btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></button></td> --}}
+						<td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Move to Pending Tasks" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></a></td>
+						<td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Delete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-trash" {{action 'deleteTask' currentTask}}></a></td>
+					</tr>
+					{{else}}
+					No complete tasks.
+					{{/each}}
+				</tbody>
+			</table>
+			{{#if tasks.completeTasks.items}}
+				<!-- <p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCompleteTasks'}}>Delete All Complete Tasks</button></p> -->
+				<p style="text-align:right;"><button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setTaskMode' 'complete'}}>Delete All Complete Tasks</button></p>
+			{{/if}}
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="cancelledtasks">
+			<br/>
+				<table width="100%" cellspacing="2" cellpadding="2px" class="table table-condensed">
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Project</th>
+						<th style="text-align: right;">Cancelled On</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each tasks.cancelledTasks.items as |currentTask|}}
+					<tr>
+						<td style="text-align: left; width: 40%;">{{currentTask.name}}</td>
+						<td style="text-align: left; width: 40%;">{{currentTask.project}}</td>
+						<td style="text-align: right;"><p style="display: inline;" class="dateClass">{{#if currentTask.completeDateStr}}{{currentTask.completeDateStr}}{{/if}}</p></td>
+						<td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Move to Pending Tasks" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-remove" {{action 'resurrectTask' currentTask}}></a></td>
+						<td><a style="vertical-align: top; text-align: right; width: 1%; text-decoration:none" title="Delete Task" class="noUnderLine btn btn-link btn-xs glyphicon glyphicon-trash" {{action 'deleteTask' currentTask}}></a></td>
+					</tr>
+					{{else}}
+					No cancelled tasks.
+					{{/each}}
+				</tbody>
+			</table>
+			{{#if tasks.cancelledTasks.items}}
+				<!-- <p style="text-align:right;"><button class="btn btn-link btn-sm" {{action 'deleteAllCancelledTasks'}}>Delete All Cancelled Tasks</button></p> -->
+				<p style="text-align:right;"><button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".confirmationModal" {{action 'setTaskMode' 'cancelled'}}>Delete All Cancelled Tasks</button></p>
+			{{/if}}
+		</div>
+	</div>
 
 </div>
 
 <div class="modal fade confirmationModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog modal-sm">
-  <div class="modal-content">
+	<div class="modal-dialog modal-sm">
+	<div class="modal-content">
 <!--    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Modal title</h4>
-    </div>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Modal title</h4>
+		</div>
  -->    <div class="modal-body">
-    <p>Are you sure you want to delete all {{taskMode}} tasks?</p>
-    </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'deleteAllTasks'}}>Delete</button>
-    </div>
-  </div>
-  </div>
+		<p>Are you sure you want to delete all {{taskMode}} tasks?</p>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" {{action 'deleteAllTasks'}}>Delete</button>
+		</div>
+	</div>
+	</div>
 </div>
