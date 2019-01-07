@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
 		var finalResult = [];
 		var currentController = this;
 		var data = this.get('model');
-		console.log(data);
+		// console.log(data);
 		if(data){
 			currentController.set('alertMessage', '');
 			for (var currentTask = data.items.length - 1; currentTask >= 0; currentTask--) {
@@ -39,20 +39,27 @@ export default Ember.Controller.extend({
 		// remove previously selected project
 		// this.set('selectedProject', '');
 
-				// build list of unique projects for dropdown
-				var projectList = [];
-				var data = this.get('tasks');
-				for (var i = data.length - 1; i >= 0; i--) {
-					var currentItemProject = data[i].project;
-					if(currentItemProject != null && currentItemProject.length > 0){
-						if(!projectList.includes(currentItemProject)){
-							projectList.push(currentItemProject);
-						}
-					}
-				}
-				projectList = projectList.sort(-1);
-				return projectList;
-			}),
+    // build list of unique projects for dropdown
+    var projectList = [];
+    var data = this.get('tasks');
+    for (var i = data.length - 1; i >= 0; i--) {
+      var currentItemProject = data[i].project;
+      if(currentItemProject != null && currentItemProject.length > 0){
+        if(!projectList.includes(currentItemProject)){
+          projectList.push(currentItemProject);
+        }
+      }
+    }
+    projectList = projectList.sort(function (a, b) {
+      if (a.creationDate > b.creationDate) {
+        return -1;
+      }
+      else {
+        return 1;
+      }
+    });
+    return projectList;
+  }),
 
 	actions:{
 
@@ -98,83 +105,83 @@ export default Ember.Controller.extend({
 					type: "PUT",
 					url: ENV.backEndBaseUrl,
 					data: newTask})
-				.then(function(){
-					currentController.set('newTasKName', '');
-					currentController.send('refreshModel');
-				});
-			}
-		},
+          .then(function(){
+            currentController.set('newTasKName', '');
+            currentController.send('refreshModel');
+          });
+        }
+      },
 
-		setCurrentTaskEditing: function(currentTask){
-			// make a copy of the object so the modal window doesn't update the grid as well
-			var clonedObject = JSON.parse(JSON.stringify(currentTask));
-			Ember.set(this, 'editingTask', clonedObject);
-		},
+      setCurrentTaskEditing: function(currentTask){
+        // make a copy of the object so the modal window doesn't update the grid as well
+        var clonedObject = JSON.parse(JSON.stringify(currentTask));
+        Ember.set(this, 'editingTask', clonedObject);
+      },
 
-		getYear: function(date) {
-			date.getFullYear();
-		},
+      getYear: function(date) {
+        date.getFullYear();
+      },
 
-		refreshModel: function() {
-			// console.log('Controller requesting route to refresh...');
-			this.send('reloadModel');
-		},
+      refreshModel: function() {
+        // console.log('Controller requesting route to refresh...');
+        this.send('reloadModel');
+      },
 
-		updateTask: function(){
-			var reqBody = {};
-			reqBody.name = this.editingTask.name;
-			reqBody.project = this.editingTask.project;
-			reqBody.pendingDeployment = this.editingTask.pendingDeployment;
-			var taskId = this.editingTask._id;
-			var url = ENV.backEndBaseUrl + taskId;
+      updateTask: function(){
+        var reqBody = {};
+        reqBody.name = this.editingTask.name;
+        reqBody.project = this.editingTask.project;
+        reqBody.pendingDeployment = this.editingTask.pendingDeployment;
+        var taskId = this.editingTask._id;
+        var url = ENV.backEndBaseUrl + taskId;
 
-			// call the mongo service to update the task as complete
-			var currentController = this;
-			Ember.$.ajax({
-				type: "POST",
-				url: url,
-				data: reqBody
-			}).then(function(){
-				// refresh the list
-				currentController.send('refreshModel');
-			});
-		},
+        // call the mongo service to update the task as complete
+        var currentController = this;
+        Ember.$.ajax({
+          type: "POST",
+          url: url,
+          data: reqBody
+        }).then(function(){
+          // refresh the list
+          currentController.send('refreshModel');
+        });
+      },
 
-		updateTaskAsComplete: function(task){
-			var currentController = this;
-			var reqBody = {};
-			reqBody.status = 'complete';
-			var taskId = task._id;
-			var url = ENV.backEndBaseUrl + taskId;
+      updateTaskAsComplete: function(task){
+        var currentController = this;
+        var reqBody = {};
+        reqBody.status = 'complete';
+        var taskId = task._id;
+        var url = ENV.backEndBaseUrl + taskId;
 
-			// call the mongo service to update the task as complete
-			Ember.$.ajax({
-				type: "POST",
-				url: url,
-				data: reqBody})
-			.then(function(){
-				currentController.send('refreshModel');
-			});
-		},
+        // call the mongo service to update the task as complete
+        Ember.$.ajax({
+          type: "POST",
+          url: url,
+          data: reqBody})
+          .then(function(){
+            currentController.send('refreshModel');
+          });
+        },
 
-		updateTaskAsCancelled: function(task){
-			var currentController = this;
-			var reqBody = {};
-			reqBody.status = 'cancelled';
-			var taskId = task._id;
-			// console.log(url);
-			var url = ENV.backEndBaseUrl + taskId;
+        updateTaskAsCancelled: function(task){
+          var currentController = this;
+          var reqBody = {};
+          reqBody.status = 'cancelled';
+          var taskId = task._id;
+          // console.log(url);
+          var url = ENV.backEndBaseUrl + taskId;
 
-			// call the mongo service to update the task as complete
-			Ember.$.ajax({
-				type: "POST",
-				url: url,
-				data: reqBody
-			})
-			.then(function(){
-				currentController.send('refreshModel');
-			});
-		}
-	}
+          // call the mongo service to update the task as complete
+          Ember.$.ajax({
+            type: "POST",
+            url: url,
+            data: reqBody
+          })
+          .then(function(){
+            currentController.send('refreshModel');
+          });
+        }
+      }
 
-});
+    });
